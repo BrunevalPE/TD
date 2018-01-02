@@ -25,6 +25,8 @@ var Game = /** @class */ (function () {
         Game.grid = new Grid();
         Game.interface = new Interface();
         Game.canvas.addEventListener('mousemove', Game.interface.mouseMoveEvent, false);
+        Game.canvas.addEventListener('mousemove', Game.grid.mouseMoveEvent, false);
+        Game.canvas.addEventListener('click', Game.grid.mouseClickEvent, false);
         requestAnimationFrame(Game.draw);
     };
     Game.canvas = document.getElementById("c");
@@ -40,6 +42,23 @@ var Vector2 = /** @class */ (function () {
         this.y = y ? y : 0;
     }
     return Vector2;
+}());
+var Rectangle = /** @class */ (function () {
+    function Rectangle(x, y, w, z) {
+        this.pos = new Vector2(x, y);
+        this.size = new Vector2(w, z);
+    }
+    Rectangle.prototype.contain = function (vec) {
+        if (this.pos.x < vec.x && (this.pos.x + this.size.x) > vec.x &&
+            this.pos.y < vec.y && (this.pos.y + this.size.y) > vec.y) {
+            return true;
+        }
+        return false;
+    };
+    Rectangle.RectangleContainVector = function (rectangle, vector) {
+        return rectangle.contain(vector);
+    };
+    return Rectangle;
 }());
 var Tower = /** @class */ (function () {
     function Tower(pos) {
