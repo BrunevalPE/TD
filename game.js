@@ -12,7 +12,6 @@ var Game = /** @class */ (function () {
             element.draw();
         });
         requestAnimationFrame(Game.draw);
-        // test com
     };
     Game.resize = function () {
         Game.canvas.width = window.innerWidth;
