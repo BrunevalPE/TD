@@ -8,6 +8,7 @@ class Grid{
     private top : number;
 
     public grid : Array<Case> = [];
+    public caseSelected 
 
     constructor(){
         this.left = (Game.canvas.width/2) - ((this.nbCol/2)*this.size);
@@ -54,7 +55,7 @@ class Grid{
         });
     }
 
-    public draw(){ // optimize this
+    public draw(){ 
         this.grid.forEach(c => {
             c.draw();
         });        
@@ -96,7 +97,7 @@ class Case{
         }
     }
 }
-
+// loic
 enum CaseState{
     Empty,
     Tower,
