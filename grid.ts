@@ -1,18 +1,19 @@
 class Grid{
-    private nbRow : number = 15;
-    private nbCol : number = 10;
-    private size : number = 40;
-    private enemySpawnRow : number = 3;
-
+    private readonly nbRow : number = 15;
+    private readonly nbCol : number = 10;
+    private readonly enemySpawnRow : number = 3;
+    
+    public readonly size : number = 40;
+    
     private left : number;
     private top : number;
 
     public grid : Array<Case> = [];
-    public caseSelected 
+    public caseSelected : Case;
 
     constructor(){
-        this.left = (Game.canvas.width/2) - ((this.nbCol/2)*this.size);
-        this.top = (Game.canvas.height/2) - ((this.nbRow/2)*this.size);
+        this.left = (Game.w() / 2) - ((this.nbCol / 2) * this.size);
+        this.top = (Game.h() / 2) - ((this.nbRow / 2) * this.size);
 
         
         for(var i = 0; i < this.nbCol; i++){
@@ -35,7 +36,7 @@ class Grid{
                         this.top - this.size - (j*this.size)
                     ),
                     this.size,
-                    CaseState.EnemySpawn)
+                    true)
                 );
             }
         }
@@ -50,8 +51,19 @@ class Grid{
 
     public mouseClickEvent(evt : MouseEvent){
         let mousePos = new Vector2(evt.clientX, evt.clientY);
+        if(Game.interface.positionMenu().contain(mousePos)){
+            return;
+        }
+        Game.grid.caseSelected = null;
         Game.grid.grid.forEach(c => {
+            if(c.enemy){
+                return;
+            }
             c.selected = c.rectangle.contain(mousePos);
+            if(c.selected)
+            {
+                Game.grid.caseSelected = c;
+            }
         });
     }
 
@@ -63,20 +75,21 @@ class Grid{
 }
 
 class Case{
-    state : CaseState;
+    enemy : boolean;
     rectangle : Rectangle;
     mouseHover : boolean;
     selected : boolean;
+    tower : Tower;
 
-    constructor(pos : Vector2, size : number, state : CaseState = null){
+    constructor(pos : Vector2, size : number, enemy : boolean = false){
         this.rectangle = new Rectangle(pos.x, pos.y, size, size);
-        this.state = state ? state : CaseState.Empty;
+        this.enemy = enemy;
     }
 
     public draw(){
         Game.context.beginPath();
         Game.context.rect(this.rectangle.pos.x, this.rectangle.pos.y, this.rectangle.size.x, this.rectangle.size.y);
-        Game.context.strokeStyle = this.state != CaseState.EnemySpawn ? "#007ACC" : "#ff0000";
+        Game.context.strokeStyle = !this.enemy ? "#007ACC" : "#ff0000";
         Game.context.lineWidth = 1;
         Game.context.stroke();
 
@@ -96,10 +109,4 @@ class Case{
             Game.context.stroke();
         }
     }
-}
-// loic
-enum CaseState{
-    Empty,
-    Tower,
-    EnemySpawn
 }
