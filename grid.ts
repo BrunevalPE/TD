@@ -1,12 +1,12 @@
 class Grid{
-    private readonly nbRow : number = 15;
-    private readonly nbCol : number = 10;
-    private readonly enemySpawnRow : number = 3;
+    readonly nbRow : number = 15;
+    readonly nbCol : number = 10;
+    readonly enemySpawnRow : number = 3;
     
     public readonly size : number = 40;
     
-    private left : number;
-    private top : number;
+    left : number;
+    top : number;
 
     public grid : Array<Case> = [];
     public caseSelected : Case;

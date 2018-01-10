@@ -5,6 +5,49 @@ class Vector2{
         this.x = x ? x : 0;
         this.y = y ? y : 0;
     }
+
+    static zero() : Vector2{
+        return new Vector2(0,0);
+    }
+
+    static distance(a : Vector2, b: Vector2) : number{
+        return a.distance(b);
+    }
+
+    static substract(a : Vector2, b : Vector2) : Vector2{
+        return new Vector2(a.x - b.x, a.y - b.y);
+    }
+
+    static add(a : Vector2, b : Vector2) : Vector2{
+        return new Vector2(a.x + b.x, a.y + b.y);
+    }
+
+    static normalize(a : Vector2) : Vector2{
+        let d = Vector2.distance(Vector2.zero(), a);
+        return new Vector2(a.x/d, a.y/d);
+    }
+
+    distance(b:Vector2) : number{
+        return Math.sqrt(
+            (this.x - b.x) * (this.x - b.x) +
+            (this.y - b.y) * (this.y - b.y)  
+        );
+    }
+    add(b:Vector2) : void{
+        this.x += b.x;
+        this.y += b.y;
+    }
+    substract(b:Vector2) : void{
+        this.x -= b.x;
+        this.y -= b.y;
+    }
+    to(b:Vector2) : Vector2{
+        return Vector2.substract(b,this);
+    }
+    normalize() : Vector2{
+        return Vector2.normalize(this);
+    }
+
 }
 
 class Rectangle{

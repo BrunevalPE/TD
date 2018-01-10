@@ -1,11 +1,20 @@
 class Interface{
     private gold : number = 200;
     private menuItems : Array<MenuItem> = [];    
-    public readonly menuItemSize : number = 40;
-    public positionMenu = () => { return new Rectangle(Game.w() - 300, Game.h() - 200, 300, 200);} 
+    public readonly menuItemSize : number = 50;
+    public readonly menuSize : Vector2 = new Vector2(300, 200);
+
+    public positionMenu = () => { return new Rectangle(Game.w() - this.menuSize.x, Game.h() - this.menuSize.y, this.menuSize.x, this.menuSize.y);} 
 
     constructor(){
-        this.menuItems.push(new BasicTowerMenuItem(new Vector2(5,5)));
+        fetch('data.json').then(r => r.json()).then(json =>{
+            let index = 0;
+            json.menuItems.forEach(menuItem => {
+                this.menuItems.push(new MenuItem(menuItem, index));
+                index++;
+            });
+        })
+
     }
 
     public mouseMoveEvent(evt : MouseEvent){
