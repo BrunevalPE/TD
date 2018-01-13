@@ -35,7 +35,7 @@ class MenuItem{
             fetch('data.json').then(r => r.json()).then(json =>{
                 json.towers.forEach(towerInfo => {
                     if(towerInfo.name == this.name){
-                        let tower = new Tower(towerInfo, new Vector2(Game.grid.caseSelected.rectangle.pos.x, Game.grid.caseSelected.rectangle.pos.y));
+                        let tower = new Tower(towerInfo, new Vector2(Game.grid.caseSelected.Rectangle.pos.x, Game.grid.caseSelected.Rectangle.pos.y));
             
                         Game.towers.push(tower);
                         Game.grid.caseSelected.tower = tower;

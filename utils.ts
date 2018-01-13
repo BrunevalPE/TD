@@ -47,7 +47,23 @@ class Vector2{
     normalize() : Vector2{
         return Vector2.normalize(this);
     }
-
+    isIn(Circle:Circle):boolean{
+        return Circle.contain(this);
+    }
+    rotate(angle:number){
+        let x = this.x * Math.cos(angle) - this.y * Math.sin(angle);
+        let y = this.x * Math.sin(angle) + this.y * Math.cos(angle);
+        this.x = x;
+        this.y = y;
+    }
+    inverse(){
+        this.x = -this.x;
+        this.y = -this.y;
+    }
+    scale(s:number){
+        this.x = this.x  * s;
+        this.y = this.y * s;
+    }
 }
 
 class Rectangle{
@@ -67,7 +83,30 @@ class Rectangle{
         return false;
     }
 
-    public static RectangleContainVector(rectangle : Rectangle, vector : Vector2){
-        return rectangle.contain(vector);
+    public static rectangleContainVector(Rectangle : Rectangle, vector : Vector2){
+        return Rectangle.contain(vector);
+    }
+}
+
+class Circle{
+    center : Vector2;
+    radius : number;
+
+    constructor(position : Vector2, radius : number){
+        this.center = position;
+        this.radius = radius;
+    }
+
+    public contain(position:Vector2){
+        return position.distance(this.center) < this. radius;
+    }
+}
+
+class Guid{
+    static NewGuid() : string {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+          var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+          return v.toString(16);
+        });
     }
 }
