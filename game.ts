@@ -54,6 +54,7 @@ class Game{
         Game.canvas.addEventListener('mousemove', Game.interface.mouseMoveEvent, false);
         Game.canvas.addEventListener('click', Game.interface.mouseClickEvent, false);
 
+        Game.interface.createMessage('Wave 1 incomming', 5000, MessageKind.Big);
         setTimeout(() => {
             Game.spawnEnemies();
             Game.running = true;
@@ -79,6 +80,8 @@ class Game{
             }
         });
     }
+
+
 }
 
 window.addEventListener('load', function(){

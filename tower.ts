@@ -1,5 +1,4 @@
 class Tower{
-    readonly aggroRange : number = 200;
     pv : number;
     maxPv : number;
     damage : number;
@@ -15,7 +14,7 @@ class Tower{
     icon : HTMLImageElement;
 
     aggro : boolean = false;
-    debug : boolean;
+    debug : boolean = true;
     target : Enemy;
 
     guid : string;
@@ -43,17 +42,22 @@ class Tower{
 
     draw() : void{
         this.update();
-        if(this.icon.complete)
-            Game.context.drawImage(this.icon, this.position.x, this.position.y, Game.grid.size, Game.grid.size);
+        
+        if(this.pv > 0){
+            if(this.icon.complete)
+                Game.context.drawImage(this.icon, this.position.x, this.position.y, Game.grid.size, Game.grid.size);
 
-        this.drawLife();
-        this.debugDisplay();
+            this.drawLife();
+        
+            if(this.debug)
+                this.debugDisplay();
+        }
     }
 
     drawLife() : void{
         Game.context.beginPath();
         Game.context.fillStyle = "#50D050";
-        Game.context.fillRect(this.position.x, this.position.y + 4, 5 + (this.pv/this.maxPv)*30, 2);
+        Game.context.fillRect(this.position.x + 5, this.position.y + 4, (this.pv/this.maxPv)*30, 2);
         Game.context.stroke();
     }
 
@@ -61,7 +65,7 @@ class Tower{
         if(Game.running){
             Game.enemies.forEach(enemy => {
                 if(this.target == null){
-                    if(this.position.distance(enemy.position) < this.aggroRange){
+                    if(this.position.distance(enemy.position) < this.range){
                         this.target = enemy;
                     }    
                 }else{
@@ -75,9 +79,14 @@ class Tower{
             });
             
             if(this.target && 
+                this.position.distance(this.target.position) < this.range &&
                (this.lastAttack == undefined || ((new Date()).valueOf() - this.lastAttack.valueOf()) > +(1000/ this.attackSpeed))){
                 this.target.pv -= this.damage;
                 this.lastAttack = new Date();
+            }
+            if(Game.enemies.length == 0){
+                this.target = null;
+                this.pv = this.maxPv;
             }
         }
     }
@@ -89,11 +98,10 @@ class Tower{
             Game.context.moveTo(this.position.x + (Game.grid.size /2), this.position.y + (Game.grid.size /2));
             Game.context.lineTo(this.target.position.x + (Game.grid.size /2), this.target.position.y + (Game.grid.size /2));
             Game.context.stroke();
-            Game.context.beginPath();
-            Game.context.strokeStyle = 'white';
-            Game.context.arc(this.position.x + (Game.grid.size /2),this.position.y + (Game.grid.size /2),this.aggroRange,0,2*Math.PI);
-            Game.context.stroke();
-
         }
+        Game.context.beginPath();
+        Game.context.strokeStyle = 'white';
+        Game.context.arc(this.position.x + (Game.grid.size /2),this.position.y + (Game.grid.size /2),this.range,0,2*Math.PI);
+        Game.context.stroke();
     }
 }

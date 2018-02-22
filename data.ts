@@ -27,7 +27,7 @@ var data = {
             "pv" : 100,
             "damage" : 15,
             "attackSpeed" : 1.5,
-            "range" : 1,
+            "range" : 100,
             "icon" : "ship1.png"
         },
         {
@@ -35,7 +35,7 @@ var data = {
             "pv" : 400,
             "damage" : 50,
             "attackSpeed" : 1.5,
-            "range" : 1,
+            "range" : 200,
             "icon" : "ship2.png"
         }
     ],
@@ -43,9 +43,9 @@ var data = {
         {
             "pv" : 20,
             "attackSpeed" : 2,
-            "range" : 1,
+            "range" : 50,
             "name" : "nooby",
-            "damage" : 5,
+            "damage" : 1,
             "wave" : 1
         }
     ]

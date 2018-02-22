@@ -1,5 +1,5 @@
 class Enemy{
-    readonly aggroRange : number = 100;
+    readonly aggroRange : number = 300;
     pv : number;
     maxPv : number;
     attackSpeed : number;
@@ -13,6 +13,7 @@ class Enemy{
     velocity : Vector2;
     target : Tower;
     guid : string;
+    lastAttack : Date;
 
     constructor(obj : any, position:Vector2){
         this.pv = obj.pv;
@@ -85,8 +86,12 @@ class Enemy{
                         this.position.add(tempvel);
                     }
                 }
-
                 this.position.add(this.velocity);
+                if(this.position.x < Game.grid.left){
+                    this.position.x = Game.grid.left;
+                }else if((this.position.x + Game.grid.size) > Game.grid.right){
+                    this.position.x = Game.grid.right - Game.grid.size;
+                }
             }
         }
     }
@@ -102,6 +107,12 @@ class Enemy{
                     }
                 }
             }
+            if(this.target && 
+                this.position.distance(this.target.position) < this.range &&
+                (this.lastAttack == undefined || ((new Date()).valueOf() - this.lastAttack.valueOf()) > +(1000/ this.attackSpeed))){
+                 this.target.pv -= this.damage;
+                 this.lastAttack = new Date();
+             }
         }
     }
 
