@@ -5,6 +5,8 @@ class MenuItem{
     position : Vector2;
     icon : HTMLImageElement;
     tooltip : TooltipItemMenu;
+    index : number;
+    initialize : boolean = false;
 
     constructor(obj : any, index : number){
         this.price = obj.price;
@@ -13,11 +15,15 @@ class MenuItem{
         this.icon = new Image();
         this.icon.src = obj.icon;
         this.tooltip = new TooltipItemMenu(obj.tooltip);
-
-        this.computePosition(index);
+        this.index = index;
     }
     
     draw(pos : Vector2) : void{
+        if(!this.initialize)
+        {
+            this.initialize = true;
+            this.computePosition(this.index);   
+        }
         Game.context.beginPath();
         Game.context.rect(this.getRectangle().pos.x, this.getRectangle().pos.y, this.getRectangle().size.x, this.getRectangle().size.y);
         Game.context.strokeStyle = "#FFF";
@@ -32,18 +38,16 @@ class MenuItem{
     
     buy() : void{
         if(Game.interface.getGold() >= this.price){
-            fetch('data.json').then(r => r.json()).then(json =>{
-                json.towers.forEach(towerInfo => {
-                    if(towerInfo.name == this.name){
-                        let tower = new Tower(towerInfo, new Vector2(Game.grid.caseSelected.Rectangle.pos.x, Game.grid.caseSelected.Rectangle.pos.y));
-            
-                        Game.towers.push(tower);
-                        Game.grid.caseSelected.tower = tower;
-                         
-                        Game.interface.buy(this);
-                    }
-                });
-            })
+            data.towers.forEach(towerInfo => {
+                if(towerInfo.name == this.name){
+                    let tower = new Tower(towerInfo, new Vector2(Game.grid.caseSelected.Rectangle.pos.x, Game.grid.caseSelected.Rectangle.pos.y));
+        
+                    Game.towers.push(tower);
+                    Game.grid.caseSelected.tower = tower;
+                        
+                    Game.interface.buy(this);
+                }
+            });
         }else{
             alert("Not enought minerals");
         }
@@ -54,6 +58,7 @@ class MenuItem{
     }
 
     getRectangle(): Rectangle{ 
+        if(!this.position) return null;
         return new Rectangle(Game.interface.positionMenu().pos.x + this.position.x, 
                              Game.interface.positionMenu().pos.y + this.position.y,
                              Game.interface.menuItemSize,

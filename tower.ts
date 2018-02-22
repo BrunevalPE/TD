@@ -16,7 +16,6 @@ class Tower{
 
     aggro : boolean = false;
     debug : boolean;
-    velocity : Vector2;
     target : Enemy;
 
     guid : string;
@@ -39,7 +38,6 @@ class Tower{
         this.icon.src = obj.icon;
 
         this.hitbox = new Circle(this.position, Game.grid.size);
-        this.velocity = Vector2.zero();
         this.guid = Guid.NewGuid();
     }
 
@@ -61,45 +59,41 @@ class Tower{
 
     update():void{
         if(Game.running){
-            this.velocity = Vector2.zero(); 
             Game.enemies.forEach(enemy => {
-                if(!this.aggro && this.target == null){ // if no target
-                    if(this.position.distance(enemy.position) < this.aggroRange){ // check for target
+                if(this.target == null){
+                    if(this.position.distance(enemy.position) < this.aggroRange){
                         this.target = enemy;
-                        this.aggro = true;
-                    }
+                    }    
                 }else{
-                    if(this.target == null){
-                        this.aggro = false;
+                    if(this.target != null && this.position.distance(this.target.position) > this.position.distance(enemy.position)){
+                        this.target = enemy;
                     }
                     if(this.target.pv <= 0){
                         this.target = null;
-                        this.aggro = false;
                     }
                 }
             });
-
-            if(this.aggro){
-                if(!this.position.isIn(this.target.hitbox)){ 
-                    this.velocity = this.position.to(this.target.position).normalize(); 
-                    this.position.add(this.velocity);
-                }
-
-                if(this.lastAttack == null || ((new Date()).valueOf() - this.lastAttack.valueOf()) > +(1000/ this.attackSpeed)){
-                    this.target.pv -= this.damage;
-                    this.lastAttack = new Date();
-                }
+            
+            if(this.target && 
+               (this.lastAttack == undefined || ((new Date()).valueOf() - this.lastAttack.valueOf()) > +(1000/ this.attackSpeed))){
+                this.target.pv -= this.damage;
+                this.lastAttack = new Date();
             }
         }
     }
 
     debugDisplay(){
-        if(this.velocity){
+        if(this.target){
             Game.context.beginPath();
-            Game.context.strokeStyle = 'yellow';
-            Game.context.moveTo(this.position.x, this.position.y);
-            Game.context.lineTo(this.position.x + (this.velocity.x *50), this.position.y + (this.velocity.y*50));
+            Game.context.strokeStyle = 'purple';
+            Game.context.moveTo(this.position.x + (Game.grid.size /2), this.position.y + (Game.grid.size /2));
+            Game.context.lineTo(this.target.position.x + (Game.grid.size /2), this.target.position.y + (Game.grid.size /2));
             Game.context.stroke();
+            Game.context.beginPath();
+            Game.context.strokeStyle = 'white';
+            Game.context.arc(this.position.x + (Game.grid.size /2),this.position.y + (Game.grid.size /2),this.aggroRange,0,2*Math.PI);
+            Game.context.stroke();
+
         }
     }
 }

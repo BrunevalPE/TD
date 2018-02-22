@@ -49,47 +49,51 @@ class Enemy{
         Game.context.stroke();
     }
 
-    update():void{
-        if(Game.running){
-            this.velocity = Vector2.zero(); 
-            Game.towers.forEach(tower => {
-                if(!this.aggro && this.target == null){ // if no target
-                    if(this.position.distance(tower.position) < this.aggroRange){ // check for target
-                        this.target = tower;
-                        this.aggro = true;
-                    }
-                }else{
-                    if(this.target == null){
-                        this.aggro = false;
-                    }
-                    if(this.target.pv <= 0){
-                        this.target = null;
-                        this.aggro = false;
-                    }
+    move() : void{
+        this.velocity = Vector2.zero(); 
+        Game.towers.forEach(tower => {
+            if(!this.aggro && this.target == null){ // if no target
+                if(this.position.distance(tower.position) < this.aggroRange){ // check for target
+                    this.target = tower;
+                    this.aggro = true;
                 }
-            });
-
-            if(!this.aggro){
-                this.position.add(new Vector2(0,1));
             }else{
-                if(!this.position.isIn(this.target.hitbox)){ 
-                    this.velocity = this.position.to(this.target.position).normalize(); 
-    
-                    for(var enemy of Game.enemies){ 
-                        if(this != enemy && this.position.isIn(enemy.hitbox)){ 
-                            let bumpVel = this.position.to(enemy.position).normalize();
-                            bumpVel.inverse();
-                            bumpVel.scale(2);
-                            this.position.add(bumpVel);
-                            let tempvel = new Vector2(this.velocity.x, this.velocity.y);
-                            tempvel.rotate(-Math.PI/2);
-                            this.position.add(tempvel);
-                        }
-                    }
-    
-                    this.position.add(this.velocity);
+                if(this.target == null){
+                    this.aggro = false;
+                }
+                if(this.target.pv <= 0){
+                    this.target = null;
+                    this.aggro = false;
                 }
             }
+        });
+
+        if(!this.aggro){
+            this.position.add(new Vector2(0,1));
+        }else{
+            if(!this.position.isIn(this.target.hitbox)){ 
+                this.velocity = this.position.to(this.target.position).normalize(); 
+
+                for(var enemy of Game.enemies){ 
+                    if(this != enemy && this.position.isIn(enemy.hitbox)){ 
+                        let bumpVel = this.position.to(enemy.position).normalize();
+                        bumpVel.inverse();
+                        bumpVel.scale(2);
+                        this.position.add(bumpVel);
+                        let tempvel = new Vector2(this.velocity.x, this.velocity.y);
+                        tempvel.rotate(-Math.PI/2);
+                        this.position.add(tempvel);
+                    }
+                }
+
+                this.position.add(this.velocity);
+            }
+        }
+    }
+
+    update():void{
+        if(Game.running){
+            this.move();
             if(this.pv <= 0){
                 for(var i = 0; i < Game.enemies.length; i++){
                     if(Game.enemies[i].guid == this.guid){

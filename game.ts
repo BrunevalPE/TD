@@ -63,26 +63,24 @@ class Game{
     }
 
     static spawnEnemies(){
-        fetch('data.json').then(r => r.json()).then(json =>{
-            json.enemies.forEach(enemy => {
-                if(enemy.wave == 1){
-                    for(var i = 0; i < Game.grid.nbCol; i++){
-                        for(var j = 0; j < Game.grid.enemySpawnRow; j++){
-                                this.enemies.push(
-                                    new Enemy(enemy,
-                                            new Vector2(
-                                                Game.grid.left + (i*Game.grid.size),
-                                                Game.grid.top - Game.grid.size - (j*Game.grid.size)
-                                            )
-                                ));
-                        }
+        data.enemies.forEach(enemy => {
+            if(enemy.wave == 1){
+                for(var i = 0; i < Game.grid.nbCol; i++){
+                    for(var j = 0; j < Game.grid.enemySpawnRow; j++){
+                            this.enemies.push(
+                                new Enemy(enemy,
+                                        new Vector2(
+                                            Game.grid.left + (i*Game.grid.size),
+                                            Game.grid.top - Game.grid.size - (j*Game.grid.size)
+                                        )
+                            ));
                     }
                 }
-            });
-        })
+            }
+        });
     }
 }
 
 window.addEventListener('load', function(){
-    Game.start();
+    setTimeout(Game.start, 500);
 }, false);

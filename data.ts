@@ -1,4 +1,4 @@
-{
+var data = {
     "menuItems" : [
         {
             "price" : 30,
@@ -49,4 +49,4 @@
             "wave" : 1
         }
     ]
-}
+};

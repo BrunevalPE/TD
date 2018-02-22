@@ -7,28 +7,29 @@ class Interface{
     public positionMenu = () => { return new Rectangle(Game.w() - this.menuSize.x, Game.h() - this.menuSize.y, this.menuSize.x, this.menuSize.y);} 
 
     constructor(){
-        fetch('data.json').then(r => r.json()).then(json =>{
-            let index = 0;
-            json.menuItems.forEach(menuItem => {
-                this.menuItems.push(new MenuItem(menuItem, index));
-                index++;
-            });
-        })
-
+        let index = 0;
+        data.menuItems.forEach(menuItem => {
+            this.menuItems.push(new MenuItem(menuItem, index));
+            index++;
+        });
     }
 
     public mouseMoveEvent(evt : MouseEvent){
         let mousePos = new Vector2(evt.clientX, evt.clientY);
         Game.interface.menuItems.forEach(mi => {
-            mi.mouseHover = mi.getRectangle().contain(mousePos);
+            if(mi.initialize){
+                mi.mouseHover = mi.getRectangle().contain(mousePos);
+            }
         });
     }
     
     public mouseClickEvent(evt : MouseEvent){
         let mousePos = new Vector2(evt.clientX, evt.clientY);
         Game.interface.menuItems.forEach(mi => {
-            if(mi.getRectangle().contain(mousePos)){
-                mi.buy();
+            if(mi.initialize){
+                if(mi.getRectangle().contain(mousePos)){
+                    mi.buy();
+                }
             }
         });
     }
