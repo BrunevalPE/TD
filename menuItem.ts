@@ -37,19 +37,29 @@ class MenuItem{
     }
     
     buy() : void{
-        if(Game.interface.getGold() >= this.price){
-            data.towers.forEach(towerInfo => {
-                if(towerInfo.name == this.name){
-                    let tower = new Tower(towerInfo, new Vector2(Game.grid.caseSelected.rectangle.pos.x, Game.grid.caseSelected.rectangle.pos.y));
-        
-                    Game.towers.push(tower);
-                    Game.grid.caseSelected.tower = tower;
-                        
-                    Game.interface.buy(this);
-                }
-            });
+        let hasTower = false;
+        Game.towers.forEach((t) => {
+            if(Game.grid.caseSelected.rectangle.contain(t.initialPosition)){
+                hasTower = true;
+            }
+        })
+        if(!hasTower){
+            if(Game.interface.getGold() >= this.price){
+                data.towers.forEach(towerInfo => {
+                    if(towerInfo.name == this.name){
+                        let tower = new Tower(towerInfo, new Vector2(Game.grid.caseSelected.rectangle.pos.x, Game.grid.caseSelected.rectangle.pos.y));
+            
+                        Game.towers.push(tower);
+                        Game.grid.caseSelected.tower = tower;
+                            
+                        Game.interface.buy(this);
+                    }
+                });
+            }else{
+                Game.interface.createMessage("Not enought minerals", 2000, MessageKind.Side);
+            }
         }else{
-            alert("Not enought minerals");
+            Game.interface.createMessage("Existing tower on spot", 2000, MessageKind.Side);
         }
     }
 

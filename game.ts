@@ -8,6 +8,7 @@ class Game{
     static enemies :Array<Enemy> = new Array();
     static grid : Grid;
     static interface : Interface;
+    static wavelogic : WaveLogic;
 
     static running : boolean = false;
 
@@ -30,6 +31,7 @@ class Game{
             enemy.draw();
         });
 
+        Game.wavelogic.update();
         requestAnimationFrame(Game.draw);
     }
 
@@ -54,32 +56,13 @@ class Game{
         Game.canvas.addEventListener('mousemove', Game.interface.mouseMoveEvent, false);
         Game.canvas.addEventListener('click', Game.interface.mouseClickEvent, false);
 
-        Game.interface.createMessage('Wave 1 incomming', 5000, MessageKind.Big);
-        setTimeout(() => {
-            Game.spawnEnemies();
-            Game.running = true;
-        }, 5000);
+        Game.wavelogic = new WaveLogic();
+        Game.wavelogic.start();
 
         requestAnimationFrame(Game.draw);
     }
 
-    static spawnEnemies(){
-        data.enemies.forEach(enemy => {
-            if(enemy.wave == 1){
-                for(var i = 0; i < Game.grid.nbCol; i++){
-                    for(var j = 0; j < Game.grid.enemySpawnRow; j++){
-                            this.enemies.push(
-                                new Enemy(enemy,
-                                        new Vector2(
-                                            Game.grid.left + (i*Game.grid.size),
-                                            Game.grid.top - Game.grid.size - (j*Game.grid.size)
-                                        )
-                            ));
-                    }
-                }
-            }
-        });
-    }
+
 
 
 }

@@ -54,7 +54,7 @@ class Enemy{
         this.velocity = Vector2.zero(); 
         Game.towers.forEach(tower => {
             if(!this.aggro && this.target == null){ // if no target
-                if(this.position.distance(tower.position) < this.aggroRange){ // check for target
+                if(this.position.distance(tower.position) < this.aggroRange && tower.pv > 0){ // check for target
                     this.target = tower;
                     this.aggro = true;
                 }
@@ -108,11 +108,15 @@ class Enemy{
                 }
             }
             if(this.target && 
+                this.target.pv > 0 &&
                 this.position.distance(this.target.position) < this.range &&
                 (this.lastAttack == undefined || ((new Date()).valueOf() - this.lastAttack.valueOf()) > +(1000/ this.attackSpeed))){
                  this.target.pv -= this.damage;
                  this.lastAttack = new Date();
-             }
+            }
+            if(this.position.y > Game.grid.bottom){
+                Game.interface.createMessage("leak", 2000, MessageKind.Side);
+            }
         }
     }
 

@@ -63,27 +63,30 @@ class Tower{
 
     update():void{
         if(Game.running){
-            Game.enemies.forEach(enemy => {
-                if(this.target == null){
-                    if(this.position.distance(enemy.position) < this.range){
-                        this.target = enemy;
-                    }    
-                }else{
-                    if(this.target != null && this.position.distance(this.target.position) > this.position.distance(enemy.position)){
-                        this.target = enemy;
+            if(this.pv > 0){
+                Game.enemies.forEach(enemy => {
+                    if(this.target == null){
+                        if(this.position.distance(enemy.position) < this.range){
+                            this.target = enemy;
+                        }    
+                    }else{
+                        if(this.target != null && this.position.distance(this.target.position) > this.position.distance(enemy.position)){
+                            this.target = enemy;
+                        }
+                        if(this.target.pv <= 0){
+                            this.target = null;
+                        }
                     }
-                    if(this.target.pv <= 0){
-                        this.target = null;
-                    }
+                });
+                
+                if(this.target && 
+                    this.position.distance(this.target.position) < this.range &&
+                   (this.lastAttack == undefined || ((new Date()).valueOf() - this.lastAttack.valueOf()) > +(1000/ this.attackSpeed))){
+                    this.target.pv -= this.damage;
+                    this.lastAttack = new Date();
                 }
-            });
-            
-            if(this.target && 
-                this.position.distance(this.target.position) < this.range &&
-               (this.lastAttack == undefined || ((new Date()).valueOf() - this.lastAttack.valueOf()) > +(1000/ this.attackSpeed))){
-                this.target.pv -= this.damage;
-                this.lastAttack = new Date();
             }
+            
             if(Game.enemies.length == 0){
                 this.target = null;
                 this.pv = this.maxPv;

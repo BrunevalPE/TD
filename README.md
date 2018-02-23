@@ -1,37 +1,38 @@
 # TD
 Squadron like 2D
 
-To run code on visual studio :
+WIP
 
+To run code on visual studio code:
+
+Use npm to install typescript 
+    -> npm install typescript -g
+
+To build scripts in VSCode:
 Ctrl + shift + B + enter
 
-To Install a tinyWeb server to escape CORS issues : 
-https://github.com/coreybutler/fenix/releases/tag/v2.0.0
-
-Just create and run a server on the index.html location folder
+Open index.html in web browser
 
 TODO: 
 - [x] hitbox on towers
 - [x] hitbox on enemies
 - [x] enemies cant enter hitbox tower
 - [x] enemies cant enter hitbox enemy
-
 - [x] enemies find a ways to acheive goal
-
-- [ ] towers moves to enemies
-
-- [ ] enemies are kill if they leave grid
-
+- [x] wave logic 
+- [ ] tower send ball on enemy ? Attack animation
+- [ ] earn gold on kill
+- [ ] change enemy skin
+- [ ] crit chance 
+- [ ] cant add tower in pending wave
+- [ ] dynamic message position (auto scroll)
 - [ ] interface improvment
-
-- [ ] upgrade tower interface +logic
-
-- [ ] income interface
+- [ ] leak count
+- [ ] upgradable tower
 - [ ] income logic
-
-- [ ] wave logic 
+- [ ] income interface
 - [ ] start stop pause game
-- [ ] enemies stats
-
+- [ ] enemies stats on mouse hover
+- [ ] press a key to start
 - [ ] game settings
 
