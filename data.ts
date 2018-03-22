@@ -7,7 +7,7 @@ var data = {
             "tooltip" : {
                 "title" : "Peon lord",
                 "price" : 30,
-                "description" : "Peon lord farm all the day for better stuff."
+                "description" : "PV: 100 D: 15 S: 1.5 R: 100"
             }
         },
         {
@@ -17,7 +17,7 @@ var data = {
             "tooltip" : {
                 "title" : "Grunt",
                 "price" : 100,
-                "description" : "The grunt is a skilled peon, he don't farm."
+                "description" : "PV: 400 D: 50 S: 1.5 R: 200"
             }
         },
         {
@@ -27,7 +27,7 @@ var data = {
             "tooltip" : {
                 "title" : "Ranger",
                 "price" : 120,
-                "description" : "The grunt is a skilled peon, he don't farm."
+                "description" : "PV: 200 D: 50 S: 3 R: 400"
             }
         },
         {
@@ -37,7 +37,7 @@ var data = {
             "tooltip" : {
                 "title" : "Stalker",
                 "price" : 200,
-                "description" : "The grunt is a skilled peon, he don't farm."
+                "description" : "PV: 600 D: 100 S: 1.5 R: 250"
             }
         },
         {
@@ -47,7 +47,7 @@ var data = {
             "tooltip" : {
                 "title" : "Zeplin",
                 "price" : 340,
-                "description" : "The grunt is a skilled peon, he don't farm."
+                "description" : "PV: 1000 D: 200 S: 1 R: 100"
             }
         },
         {
@@ -57,7 +57,7 @@ var data = {
             "tooltip" : {
                 "title" : "Queen",
                 "price" : 420,
-                "description" : "The grunt is a skilled peon, he don't farm."
+                "description" : "PV: 800 D: 80 S: 2 R: 300"
             }
         },
         {
@@ -67,7 +67,7 @@ var data = {
             "tooltip" : {
                 "title" : "Banshee",
                 "price" : 510,
-                "description" : "The grunt is a skilled peon, he don't farm."
+                "description" : "PV: 400 D: 100 S: 3 R: 200"
             }
         },
         {
@@ -77,7 +77,7 @@ var data = {
             "tooltip" : {
                 "title" : "Wryms",
                 "price" : 600,
-                "description" : "The grunt is a skilled peon, he don't farm."
+                "description" : "PV: 2000 D: 200 S: 1.1 R: 200"
             }
         },
         {
@@ -87,7 +87,7 @@ var data = {
             "tooltip" : {
                 "title" : "Abomination",
                 "price" : 710,
-                "description" : "The grunt is a skilled peon, he don't farm."
+                "description" : "PV: 1200 D: 150 S: 3.5 R: 200"
             }
         },
         {
@@ -97,7 +97,7 @@ var data = {
             "tooltip" : {
                 "title" : "truc",
                 "price" : 990,
-                "description" : "The grunt is a skilled peon, he don't farm."
+                "description" : "PV: 4000 D: 10 S: 10 R: 200"
             }
         }
     ],
@@ -177,8 +177,8 @@ var data = {
         {
             "name" : "truc",
             "pv" : 4000,
-            "damage" : 10,
-            "attackSpeed" : 4,
+            "damage" : 50,
+            "attackSpeed" : 10,
             "range" : 200,
             "icon" : "ship10.png"
         }
@@ -228,6 +228,51 @@ var data = {
             "damage" : 15,
             "wave" : 5,
             "gold" : 9
+        },
+        {
+            "pv" : 250,
+            "attackSpeed" : 2,
+            "range" : 50,
+            "name" : "nooby",
+            "damage" : 20,
+            "wave" : 6,
+            "gold" : 11
+        },
+        {
+            "pv" : 350,
+            "attackSpeed" : 2,
+            "range" : 50,
+            "name" : "nooby",
+            "damage" : 25,
+            "wave" : 7,
+            "gold" : 15
+        },
+        {
+            "pv" : 600,
+            "attackSpeed" : 2,
+            "range" : 50,
+            "name" : "nooby",
+            "damage" : 50,
+            "wave" : 8,
+            "gold" : 17
+        },
+        {
+            "pv" : 800,
+            "attackSpeed" : 2,
+            "range" : 50,
+            "name" : "nooby",
+            "damage" : 100,
+            "wave" : 9,
+            "gold" : 19
+        },
+        {
+            "pv" : 1500,
+            "attackSpeed" : 2,
+            "range" : 50,
+            "name" : "nooby",
+            "damage" : 150,
+            "wave" : 10,
+            "gold" : 22
         }
     ]
 };

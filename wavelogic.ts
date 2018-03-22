@@ -15,8 +15,9 @@ class WaveLogic{
     private disclaime(){
         Game.interface.createMessage(`Wave ${this.actualWave} in :`, 10000, MessageKind.BigCountDown);
         setTimeout(() => {
-           this.spawnEnemies(); 
-        }, 10000);
+            this.spawnEnemies(); 
+            this.actualWave++;
+         }, 10000);
     }
 
     private spawnEnemies(){
@@ -46,7 +47,10 @@ class WaveLogic{
     }
 
     private waveDone(){
-        this.actualWave++;
-        this.disclaime();
+        if(this.actualWave >= data.enemies.length){
+            Game.interface.createMessage('End.', 10000, MessageKind.Big);
+        }else{
+            this.disclaime();
+        }
     }
 }

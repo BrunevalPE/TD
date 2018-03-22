@@ -14,7 +14,7 @@ class Tower{
     icon : HTMLImageElement;
 
     aggro : boolean = false;
-    debug : boolean = true;
+    debug : boolean = false;
     target : Enemy;
 
     guid : string;

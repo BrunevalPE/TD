@@ -13,6 +13,12 @@
                 "kind": "build",
                 "isDefault": true
             }
+        },
+        {
+            "taskName": "run",
+            "command": "start", 
+            "args": ["index.html"],
+            "isShellCommand": true
         }
     ]
 }

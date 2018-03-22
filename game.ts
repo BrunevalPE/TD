@@ -11,27 +11,31 @@ class Game{
     static wavelogic : WaveLogic;
 
     static running : boolean = false;
+    static pause : boolean = false;
 
     static w = () => {return Game.canvas.width;}
     static h = () => {return Game.canvas.height;}
 
     static draw(){
-        Game.context.clearRect(0, 0, Game.w(), Game.h());
-        Game.context.fillStyle = "#1E1E1E";
-        Game.context.fillRect(0,0, Game.w(), Game.h());
-        
-        Game.grid.draw();
-        Game.interface.draw();
-
-        Game.towers.forEach(tower => {
-            tower.draw();
-        });
-
-        Game.enemies.forEach(enemy => {
-            enemy.draw();
-        });
-
-        Game.wavelogic.update();
+        if(!Game.pause)
+        {
+            Game.context.clearRect(0, 0, Game.w(), Game.h());
+            Game.context.fillStyle = "#1E1E1E";
+            Game.context.fillRect(0,0, Game.w(), Game.h());
+            
+            Game.grid.draw();
+            Game.interface.draw();
+    
+            Game.towers.forEach(tower => {
+                tower.draw();
+            });
+    
+            Game.enemies.forEach(enemy => {
+                enemy.draw();
+            });
+    
+            Game.wavelogic.update();
+        }
         requestAnimationFrame(Game.draw);
     }
 

@@ -14,6 +14,8 @@ class Enemy{
     target : Tower;
     guid : string;
     lastAttack : Date;
+    gold : number;
+    leaked : boolean = false;
 
     constructor(obj : any, position:Vector2){
         this.pv = obj.pv;
@@ -28,6 +30,7 @@ class Enemy{
         this.hitbox = new Circle(this.position, Game.grid.size/2);
         this.velocity = Vector2.zero();
         this.guid = Guid.NewGuid();
+        this.gold = obj.gold;
     }
 
     draw() : void{
@@ -40,7 +43,7 @@ class Enemy{
         Game.context.stroke();
 
         this.drawLife();
-        this.debugDisplay();
+        //this.debugDisplay();
     }
 
     drawLife() : void{
@@ -99,14 +102,12 @@ class Enemy{
     update():void{
         if(Game.running){
             this.move();
-            if(this.pv <= 0){
                 for(var i = 0; i < Game.enemies.length; i++){
-                    if(Game.enemies[i].guid == this.guid){
+                    if((this.pv <= 0 && Game.enemies[i].guid == this.guid) || this.position.y >= Game.h()){
                         Game.enemies.splice(i,1);
-                        break;
+                        Game.interface.enemyDied(this);
                     }
                 }
-            }
             if(this.target && 
                 this.target.pv > 0 &&
                 this.position.distance(this.target.position) < this.range &&
@@ -114,8 +115,9 @@ class Enemy{
                  this.target.pv -= this.damage;
                  this.lastAttack = new Date();
             }
-            if(this.position.y > Game.grid.bottom){
-                Game.interface.createMessage("leak", 2000, MessageKind.Side);
+            if(!this.leaked && this.position.y > Game.grid.bottom){
+                Game.interface.createMessage("leak", 5000, MessageKind.Side);
+                this.leaked = true;
             }
         }
     }

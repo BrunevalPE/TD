@@ -76,8 +76,8 @@ class Rectangle{
     }
 
     public contain(vec : Vector2){
-        if(this.pos.x <= vec.x && (this.pos.x + this.size.x) >= vec.x &&
-           this.pos.y <= vec.y && (this.pos.y + this.size.y) >= vec.y){
+        if(this.pos.x <= vec.x && (this.pos.x + this.size.x) > vec.x &&
+           this.pos.y <= vec.y && (this.pos.y + this.size.y) > vec.y){
                return true;
         }
         return false;

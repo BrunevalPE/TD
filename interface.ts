@@ -2,8 +2,6 @@ class Interface{
     private gold : number = 200;
     private menuItems : Array<MenuItem> = [];    
     
-    private bigMessage : Message = null;
-    private sideMessage : Message = null;
     private messages : Array<Message> = [];
     
     public readonly menuItemSize : number = 50;
@@ -43,6 +41,10 @@ class Interface{
         return this.gold;
     }
 
+    public enemyDied(enemy : Enemy){
+        this.gold += enemy.gold;
+    }
+
     public buy(mi : MenuItem){
         this.gold -= mi.price;
     }
@@ -68,11 +70,16 @@ class Interface{
     }
 
     public drawTexts(){
+        let yOffset = (3*Game.h())/4;
         for(let i = 0; i < this.messages.length; i++){
             if(this.messages[i].alpha <- 0){
                 this.messages.splice(i,1);
             }
             if(this.messages[i]){
+                if(this.messages[i].kind == MessageKind.Side){
+                    this.messages[i].position.y = yOffset;
+                    yOffset -= 20;
+                }
                 this.messages[i].draw();
             }
         }   
@@ -97,7 +104,7 @@ class Interface{
             }
         });
     }
- // use list instead of 2 var
+
     public createMessage(message:string, showTime : number, kind : MessageKind){
         this.messages.push(new Message(message, showTime, kind));
     }
@@ -141,7 +148,7 @@ class Message{
                 this.g = "204";
                 this.b = "0";
 
-                this.position = new Vector2(25, Game.h()*0.5);
+                this.position = new Vector2(25, (Game.h()*0.5));
                 break;
 
             case MessageKind.BigCountDown:
