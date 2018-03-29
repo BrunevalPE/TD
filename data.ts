@@ -3,7 +3,7 @@ var data = {
         {
             "price" : 30,
             "name" : "Peon",
-            "icon" : "ship1.png",
+            "icon" : "images/ship1.png",
             "tooltip" : {
                 "title" : "Peon lord",
                 "price" : 30,
@@ -13,7 +13,7 @@ var data = {
         {
             "price" : 100,
             "name" : "Grunt",
-            "icon" : "ship2.png",
+            "icon" : "images/ship2.png",
             "tooltip" : {
                 "title" : "Grunt",
                 "price" : 100,
@@ -23,7 +23,7 @@ var data = {
         {
             "price" : 120,
             "name" : "Ranger",
-            "icon" : "ship3.png",
+            "icon" : "images/ship3.png",
             "tooltip" : {
                 "title" : "Ranger",
                 "price" : 120,
@@ -33,7 +33,7 @@ var data = {
         {
             "price" : 200,
             "name" : "Stalker",
-            "icon" : "ship4.png",
+            "icon" : "images/ship4.png",
             "tooltip" : {
                 "title" : "Stalker",
                 "price" : 200,
@@ -43,7 +43,7 @@ var data = {
         {
             "price" : 340,
             "name" : "Zeplin",
-            "icon" : "ship5.png",
+            "icon" : "images/ship5.png",
             "tooltip" : {
                 "title" : "Zeplin",
                 "price" : 340,
@@ -53,7 +53,7 @@ var data = {
         {
             "price" : 420,
             "name" : "Queen",
-            "icon" : "ship6.png",
+            "icon" : "images/ship6.png",
             "tooltip" : {
                 "title" : "Queen",
                 "price" : 420,
@@ -63,7 +63,7 @@ var data = {
         {
             "price" : 510,
             "name" : "Banshee",
-            "icon" : "ship7.png",
+            "icon" : "images/ship7.png",
             "tooltip" : {
                 "title" : "Banshee",
                 "price" : 510,
@@ -73,7 +73,7 @@ var data = {
         {
             "price" : 600,
             "name" : "Wyrms",
-            "icon" : "ship8.png",
+            "icon" : "images/ship8.png",
             "tooltip" : {
                 "title" : "Wryms",
                 "price" : 600,
@@ -83,7 +83,7 @@ var data = {
         {
             "price" : 710,
             "name" : "Abomination",
-            "icon" : "ship9.png",
+            "icon" : "images/ship9.png",
             "tooltip" : {
                 "title" : "Abomination",
                 "price" : 710,
@@ -93,7 +93,7 @@ var data = {
         {
             "price" : 990,
             "name" : "truc",
-            "icon" : "ship10.png",
+            "icon" : "images/ship10.png",
             "tooltip" : {
                 "title" : "truc",
                 "price" : 990,
@@ -108,7 +108,7 @@ var data = {
             "damage" : 15,
             "attackSpeed" : 1.5,
             "range" : 100,
-            "icon" : "ship1.png"
+            "icon" : "images/ship1.png"
         },
         {
             "name" : "Grunt",
@@ -116,7 +116,7 @@ var data = {
             "damage" : 50,
             "attackSpeed" : 1.5,
             "range" : 200,
-            "icon" : "ship2.png"
+            "icon" : "images/ship2.png"
         },
         {
             "name" : "Ranger",
@@ -124,7 +124,7 @@ var data = {
             "damage" : 50,
             "attackSpeed" : 3,
             "range" : 400,
-            "icon" : "ship3.png"
+            "icon" : "images/ship3.png"
         },
         {
             "name" : "Stalker",
@@ -132,7 +132,7 @@ var data = {
             "damage" : 100,
             "attackSpeed" : 1.5,
             "range" : 250,
-            "icon" : "ship4.png"
+            "icon" : "images/ship4.png"
         },
         {
             "name" : "Zeplin",
@@ -140,7 +140,7 @@ var data = {
             "damage" : 200,
             "attackSpeed" : 1,
             "range" : 100,
-            "icon" : "ship5.png"
+            "icon" : "images/ship5.png"
         },
         {
             "name" : "Queen",
@@ -148,7 +148,7 @@ var data = {
             "damage" : 80,
             "attackSpeed" : 2,
             "range" : 300,
-            "icon" : "ship6.png"
+            "icon" : "images/ship6.png"
         },
         {
             "name" : "Banshee",
@@ -156,7 +156,7 @@ var data = {
             "damage" : 100,
             "attackSpeed" : 3,
             "range" : 200,
-            "icon" : "ship7.png"
+            "icon" : "images/ship7.png"
         },
         {
             "name" : "Wyrms",
@@ -164,7 +164,7 @@ var data = {
             "damage" : 200,
             "attackSpeed" : 1.1,
             "range" : 200,
-            "icon" : "ship8.png"
+            "icon" : "images/ship8.png"
         },
         {
             "name" : "Abomination",
@@ -172,7 +172,7 @@ var data = {
             "damage" : 150,
             "attackSpeed" : 3.5,
             "range" : 200,
-            "icon" : "ship9.png"
+            "icon" : "images/ship9.png"
         },
         {
             "name" : "truc",
@@ -180,7 +180,7 @@ var data = {
             "damage" : 100,
             "attackSpeed" : 5,
             "range" : 400,
-            "icon" : "ship10.png"
+            "icon" : "images/ship10.png"
         }
     ],
     "enemies" : [
