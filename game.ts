@@ -65,10 +65,6 @@ class Game{
 
         requestAnimationFrame(Game.draw);
     }
-
-
-
-
 }
 
 window.addEventListener('load', function(){

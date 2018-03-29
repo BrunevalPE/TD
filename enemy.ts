@@ -16,6 +16,7 @@ class Enemy{
     lastAttack : Date;
     gold : number;
     leaked : boolean = false;
+    damagesTook : Array<Damage> = new Array();
 
     constructor(obj : any, position:Vector2){
         this.pv = obj.pv;
@@ -99,6 +100,11 @@ class Enemy{
         }
     }
 
+    takeDamage(damage:number, crit : boolean){
+        Game.interface.createDamage(damage,crit, new Vector2(this.position.x+Game.grid.size/2, this.position.y), false);
+        this.pv -= damage;
+    }
+
     update():void{
         if(Game.running){
             this.move();
@@ -130,3 +136,4 @@ class Enemy{
         Game.context.stroke();
     }
 }
+

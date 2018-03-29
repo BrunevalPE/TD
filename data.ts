@@ -97,7 +97,7 @@ var data = {
             "tooltip" : {
                 "title" : "truc",
                 "price" : 990,
-                "description" : "PV: 4000 D: 10 S: 10 R: 200"
+                "description" : "PV: 4000 D: 100 S: 5 R: 400"
             }
         }
     ],
@@ -177,9 +177,9 @@ var data = {
         {
             "name" : "truc",
             "pv" : 4000,
-            "damage" : 50,
-            "attackSpeed" : 10,
-            "range" : 200,
+            "damage" : 100,
+            "attackSpeed" : 5,
+            "range" : 400,
             "icon" : "ship10.png"
         }
     ],

@@ -20,6 +20,8 @@ class Tower{
     guid : string;
     lastAttack : Date;
 
+    rays : Array<Ray> = new Array();
+
     constructor(obj : any, pos : Vector2){
         this.position = pos;
         this.initialPosition = this.position;
@@ -48,10 +50,12 @@ class Tower{
                 Game.context.drawImage(this.icon, this.position.x, this.position.y, Game.grid.size, Game.grid.size);
 
             this.drawLife();
+            this.drawRange();
         
             if(this.debug)
                 this.debugDisplay();
         }
+
     }
 
     drawLife() : void{
@@ -82,7 +86,11 @@ class Tower{
                 if(this.target && 
                     this.position.distance(this.target.position) < this.range &&
                    (this.lastAttack == undefined || ((new Date()).valueOf() - this.lastAttack.valueOf()) > +(1000/ this.attackSpeed))){
-                    this.target.pv -= this.damage;
+                    this.rays.push(new Ray(this, this.target));
+
+                    let crit = Math.random() < 0.2;
+                    let damage = Math.floor((this.damage * (1 + Math.random()/5)) * ( crit ? 2 : 1));
+                    this.target.takeDamage(damage, crit);
                     this.lastAttack = new Date();
                 }
             }
@@ -91,7 +99,21 @@ class Tower{
                 this.target = null;
                 this.pv = this.maxPv;
             }
+            for(let i = 0 ; i < this.rays.length; i++){
+                if(((new Date()).valueOf() - this.rays[i].firstDraw.valueOf()) > this.rays[i].showTime){
+                    this.rays.splice(i, 1);
+                }else{
+                    this.rays[i].draw();
+                }
+            }
         }
+    }
+
+    drawRange(){
+        Game.context.beginPath();
+        Game.context.strokeStyle = 'rgba(255,255,255,0.3)';
+        Game.context.arc(this.position.x + (Game.grid.size /2),this.position.y + (Game.grid.size /2),this.range,0,2*Math.PI);
+        Game.context.stroke();
     }
 
     debugDisplay(){
@@ -102,9 +124,26 @@ class Tower{
             Game.context.lineTo(this.target.position.x + (Game.grid.size /2), this.target.position.y + (Game.grid.size /2));
             Game.context.stroke();
         }
+    }
+}
+
+class Ray{
+    start : Vector2;
+    end : Vector2;
+    firstDraw : Date;
+    showTime : number = 200;
+
+    constructor(tower : Tower, enemy : Enemy){
+        this.start = tower.position;
+        this.end = enemy.position;
+        this.firstDraw = new Date();
+    }
+
+    draw(){
         Game.context.beginPath();
         Game.context.strokeStyle = 'white';
-        Game.context.arc(this.position.x + (Game.grid.size /2),this.position.y + (Game.grid.size /2),this.range,0,2*Math.PI);
+        Game.context.moveTo(this.start.x + (Game.grid.size /2), this.start.y);
+        Game.context.lineTo(this.end.x + (Game.grid.size /2), this.end.y + (Game.grid.size /2));
         Game.context.stroke();
     }
 }

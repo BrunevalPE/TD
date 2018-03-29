@@ -3,6 +3,7 @@ class Interface{
     private menuItems : Array<MenuItem> = [];    
     
     private messages : Array<Message> = [];
+    private damages : Array<Damage> = [];
     
     public readonly menuItemSize : number = 50;
     public readonly menuSize : Vector2 = new Vector2(300, 200);
@@ -56,6 +57,7 @@ class Interface{
         }
 
         this.drawTexts();
+        this.drawDamages();
     }
 
     private drawGold() : void{
@@ -67,6 +69,16 @@ class Interface{
         Game.context.font = "20px Segoe UI";
         Game.context.fillStyle = "#FFF";
         Game.context.fillText("Gold : " + this.gold, (Game.w() - 95), 20);
+    }
+
+    public drawDamages(){
+        for(let i = 0; i < this.damages.length; i++){
+            if((new Date().valueOf() - this.damages[i].startTime.valueOf()) > this.damages[i].displayTime){
+                this.damages.splice(i, 1);
+            }else{
+                this.damages[i].draw();
+            }
+        }
     }
 
     public drawTexts(){
@@ -107,6 +119,10 @@ class Interface{
 
     public createMessage(message:string, showTime : number, kind : MessageKind){
         this.messages.push(new Message(message, showTime, kind));
+    }
+
+    public createDamage(damage:number, crit:boolean, position:Vector2, isTower:boolean){
+        this.damages.push(new Damage(damage, crit, position, isTower));
     }
 }
 
@@ -187,6 +203,29 @@ class Message{
         Game.context.fillText(this.text + subText, this.position.x, this.position.y);
     }
 
+}
+
+class Damage{
+    position: Vector2;
+    startTime : Date;
+    damage : number;
+    crit : boolean;
+    isTower : boolean;
+    displayTime :number = 1000;
+
+    constructor(damage:number, crit : boolean, position:Vector2, isTower:boolean){
+        this.damage = damage;
+        this.crit = crit;
+        this.startTime = new Date();
+        this.position = position;
+    }
+
+    draw(){
+        Game.context.font = (this.crit ? '16px' : '10px') + ' Segoe UI';
+        Game.context.fillStyle = this.crit ? 'red' : '#CCC';
+        Game.context.fillText(this.damage.toString(), this.position.x, this.position.y);
+        this.position.y -= 1;
+    }
 }
 
 enum MessageKind{
