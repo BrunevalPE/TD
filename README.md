@@ -27,14 +27,14 @@ TODO:
 - [x] earn gold on kill
 - [ ] change enemy skin
 - [x] crit chance 
-- [ ] cant add tower in pending wave
+- [x] cant add tower in pending wave
 - [x] dynamic message position (auto scroll)
 - [ ] interface improvment
 - [ ] leak count
 - [ ] upgradable tower
 - [ ] income logic
 - [ ] income interface
-- [ ] start stop pause game
+- [x] start stop pause game
 - [ ] enemies stats on mouse hover
 - [ ] press a key to start
 - [ ] game settings

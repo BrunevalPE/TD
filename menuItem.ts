@@ -44,6 +44,10 @@ class MenuItem{
             }
         })
         if(!hasTower){
+            if(Game.wavelogic.pending){
+                Game.interface.createMessage("Can't build outside build phase", 2000, MessageKind.Side);
+                return;
+            }
             if(Game.interface.getGold() >= this.price){
                 data.towers.forEach(towerInfo => {
                     if(towerInfo.name == this.name){

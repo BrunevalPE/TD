@@ -44,6 +44,16 @@ class Game{
         Game.canvas.height = window.innerHeight;
     }
 
+    static keyPressed(e){
+        if(e.key == 'p'){
+            Game.togglePause();
+        }
+    }
+
+    static togglePause(){
+        Game.pause = !Game.pause;
+    }
+
     static start(){
         Game.canvas.width  = window.innerWidth;
         Game.canvas.height = window.innerHeight;
@@ -59,6 +69,8 @@ class Game{
 
         Game.canvas.addEventListener('mousemove', Game.interface.mouseMoveEvent, false);
         Game.canvas.addEventListener('click', Game.interface.mouseClickEvent, false);
+
+        window.addEventListener('keypress', Game.keyPressed, false);
 
         Game.wavelogic = new WaveLogic();
         Game.wavelogic.start();
