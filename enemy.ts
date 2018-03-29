@@ -118,8 +118,14 @@ class Enemy{
                 this.target.pv > 0 &&
                 this.position.distance(this.target.position) < this.range &&
                 (this.lastAttack == undefined || ((new Date()).valueOf() - this.lastAttack.valueOf()) > +(1000/ this.attackSpeed))){
-                 this.target.pv -= this.damage;
-                 this.lastAttack = new Date();
+
+                let crit = Math.random() < 0.2;
+                let damage = Math.floor((this.damage * (1 + Math.random()/5)) * ( crit ? 2 : 1));
+
+                this.target.takeDamage(damage, crit);
+                
+                this.target.pv -= this.damage;
+                this.lastAttack = new Date();
             }
             if(!this.leaked && this.position.y > Game.grid.bottom){
                 Game.interface.createMessage("leak", 5000, MessageKind.Side);

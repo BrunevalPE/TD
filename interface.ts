@@ -211,20 +211,21 @@ class Damage{
     damage : number;
     crit : boolean;
     isTower : boolean;
-    displayTime :number = 1000;
+    displayTime :number = 2000;
 
     constructor(damage:number, crit : boolean, position:Vector2, isTower:boolean){
         this.damage = damage;
         this.crit = crit;
         this.startTime = new Date();
         this.position = position;
+        this.isTower = isTower;
     }
 
     draw(){
         Game.context.font = (this.crit ? '16px' : '10px') + ' Segoe UI';
-        Game.context.fillStyle = this.crit ? 'red' : '#CCC';
+        Game.context.fillStyle = this.isTower ? (this.crit ? 'red' : '#007ACC') : (this.crit ? 'red' : '#CCC');
         Game.context.fillText(this.damage.toString(), this.position.x, this.position.y);
-        this.position.y -= 1;
+        this.position.y += (this.isTower ?  1 : -1);
     }
 }
 

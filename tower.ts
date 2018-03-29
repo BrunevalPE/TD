@@ -65,6 +65,11 @@ class Tower{
         Game.context.stroke();
     }
 
+    takeDamage(damage:number, crit : boolean){
+        Game.interface.createDamage(damage,crit, new Vector2(this.position.x+Game.grid.size/2, this.position.y), true);
+        this.pv -= damage;
+    }
+
     update():void{
         if(Game.running){
             if(this.pv > 0){
@@ -90,6 +95,7 @@ class Tower{
 
                     let crit = Math.random() < 0.2;
                     let damage = Math.floor((this.damage * (1 + Math.random()/5)) * ( crit ? 2 : 1));
+                    
                     this.target.takeDamage(damage, crit);
                     this.lastAttack = new Date();
                 }
