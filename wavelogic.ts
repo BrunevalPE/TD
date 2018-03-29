@@ -3,6 +3,8 @@ class WaveLogic{
     actualWave : number = 1;
     pending : boolean = false;
 
+    private timeBetweenWave : number = 20000; // ms
+
     constructor(){
         this.enemies = data.enemies;
     }
@@ -13,11 +15,11 @@ class WaveLogic{
     }
 
     private disclaime(){
-        Game.interface.createMessage(`Wave ${this.actualWave} in :`, 10000, MessageKind.BigCountDown);
+        Game.interface.createMessage(`Wave ${this.actualWave} in :`, this.timeBetweenWave, MessageKind.BigCountDown);
         setTimeout(() => {
             this.spawnEnemies(); 
             this.actualWave++;
-         }, 10000);
+         }, this.timeBetweenWave);
     }
 
     private spawnEnemies(){
@@ -48,7 +50,7 @@ class WaveLogic{
 
     private waveDone(){
         if(this.actualWave >= data.enemies.length){
-            Game.interface.createMessage('End.', 10000, MessageKind.Big);
+            Game.interface.createMessage('End.', 1000000, MessageKind.Big);
         }else{
             this.disclaime();
         }
