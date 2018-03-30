@@ -80,5 +80,5 @@ class Game{
 }
 
 window.addEventListener('load', function(){
-    setTimeout(Game.start, 500);
+    setTimeout(Game.start, 501);
 }, false);
