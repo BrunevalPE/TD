@@ -75,11 +75,11 @@ class Tower{
             if(this.pv > 0){
                 Game.enemies.forEach(enemy => {
                     if(this.target == null){
-                        if(this.position.distance(enemy.position) < this.range){
+                        if(this.position.distance(enemy.position) < this.range && !enemy.isDeathState){
                             this.target = enemy;
                         }    
                     }else{
-                        if(this.target != null && this.position.distance(this.target.position) > this.position.distance(enemy.position)){
+                        if(this.target != null && this.position.distance(this.target.position) > this.position.distance(enemy.position) && !enemy.isDeathState){
                             this.target = enemy;
                         }
                         if(this.target.pv <= 0){
