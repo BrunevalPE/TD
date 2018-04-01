@@ -17,6 +17,9 @@ class Enemy{
     gold : number;
     leaked : boolean = false;
     damagesTook : Array<Damage> = new Array();
+    deathTime : Date;
+    sizeSpread : number = 10;
+    isDeathState : boolean = false;
 
     constructor(obj : any, position:Vector2){
         this.pv = obj.pv;
@@ -35,15 +38,18 @@ class Enemy{
     }
 
     draw() : void{
-        this.update();
-
-        Game.context.beginPath();
-        Game.context.fillStyle = "#000";
-        Game.context.strokeStyle = "#FF0000";
-        Game.context.arc(this.position.x + (Game.grid.size/2), this.position.y + (Game.grid.size/2), 10, 0, 2*Math.PI);
-        Game.context.stroke();
-
-        this.drawLife();
+        if(this.isDeathState){
+            this.drawDeath();
+        }else{
+            this.update();
+            Game.context.beginPath();
+            Game.context.fillStyle = "#000";
+            Game.context.strokeStyle = "#FF0000";
+            Game.context.arc(this.position.x + (Game.grid.size/2), this.position.y + (Game.grid.size/2), 10, 0, 2*Math.PI);
+            Game.context.stroke();
+    
+            this.drawLife();
+        }
         //this.debugDisplay();
     }
 
@@ -52,6 +58,22 @@ class Enemy{
         Game.context.fillStyle = "#50D050";
         Game.context.fillRect(this.position.x, this.position.y + 4, 5 + (this.pv/this.maxPv)*30, 2);
         Game.context.stroke();
+    }
+
+    drawDeath() : void{
+        Game.context.beginPath();
+        let angle = (2*Math.PI)/30;
+        let totalAngle = 0;
+
+        for (let i = 0; i < 15; i++) {
+            Game.context.beginPath();
+            Game.context.arc(this.position.x + Game.grid.size / 2,this.position.y + Game.grid.size / 2,this.sizeSpread, totalAngle, totalAngle+angle);
+            Game.context.strokeStyle = "#FF0000";
+            Game.context.stroke();
+            totalAngle+=angle*2;
+        }
+
+        this.sizeSpread++;
     }
 
     move() : void{
@@ -108,12 +130,10 @@ class Enemy{
     update():void{
         if(Game.running){
             this.move();
-                for(var i = 0; i < Game.enemies.length; i++){
-                    if((this.pv <= 0 && Game.enemies[i].guid == this.guid) || this.position.y >= Game.h()){
-                        Game.enemies.splice(i,1);
-                        Game.interface.enemyDied(this);
-                    }
-                }
+            if(this.pv < 0 || this.leaked) {
+                this.deathTime = new Date();
+                this.isDeathState = true;
+            }
             if(this.target && 
                 this.target.pv > 0 &&
                 this.position.distance(this.target.position) < this.range &&

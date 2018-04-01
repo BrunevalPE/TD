@@ -46,6 +46,17 @@ class WaveLogic{
             this.waveDone();
             this.pending = false;
         }
+        // every ennemy pv
+        for(var i = 0; i < Game.enemies.length; i++){
+            var enemy = Game.enemies[i];
+            if(enemy.isDeathState || enemy.position.y >= Game.h()){
+                if(new Date().valueOf() - enemy.deathTime.valueOf() > 750)
+                {
+                    Game.enemies.splice(i,1);
+                    Game.interface.enemyDied(enemy);
+                }
+            }
+        }
     }
 
     private waveDone(){
