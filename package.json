@@ -1,11 +1,12 @@
 {
   "scripts": {
     "build": "tsc -w",
-    "start": "npm run build -w",
-    "debug": "http-server"
+    "start": "npm run build -w & node index.js",
+    "debug": "docker build -t td-container ; docker run tf-container ; tsc -w"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "typescript": "^3.5.2"
   },
   "name": "td",
   "description": "Squadron like 2D",
