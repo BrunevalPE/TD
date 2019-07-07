@@ -6,7 +6,7 @@ app.use('/images', express.static(__dirname + '/images'));
 app.get('/', function(req, res) {
     res.sendFile('./index.html', { root: __dirname });
 });
-
-app.listen(8888, function() {
-    console.log('Example app listening on port 8888!');
+const port = process.env.PORT || 8888;
+app.listen(port, function() {
+    console.log('Example app listening on port' + port);
 });
