@@ -3,6 +3,7 @@ import { Game } from './game.js';
 import { MessageKind } from './interface.js';
 import { data } from './data.js';
 import { Tower } from './tower.js';
+
 class MenuItem {
     price: number;
     name: string;

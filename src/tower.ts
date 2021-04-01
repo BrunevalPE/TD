@@ -2,6 +2,7 @@ import { Circle, Vector2, Guid } from './utils.js';
 import { Enemy } from './enemy.js';
 
 import { Game } from './game.js';
+import { Grid } from './grid.js';
 
 class Tower {
     pv: number;
@@ -43,7 +44,7 @@ class Tower {
         this.icon = new Image();
         this.icon.src = obj.icon;
 
-        this.hitbox = new Circle(this.position, Game.grid.size);
+        this.hitbox = new Circle(this.position, Grid.size);
         this.guid = Guid.NewGuid();
     }
 
@@ -51,7 +52,7 @@ class Tower {
         this.update();
 
         if (this.pv > 0) {
-            if (this.icon.complete) Game.context.drawImage(this.icon, this.position.x, this.position.y, Game.grid.size, Game.grid.size);
+            if (this.icon.complete) Game.context.drawImage(this.icon, this.position.x, this.position.y, Grid.size, Grid.size);
 
             this.drawLife();
             this.drawRange();
@@ -63,12 +64,12 @@ class Tower {
     drawLife(): void {
         Game.context.beginPath();
         Game.context.fillStyle = '#50D050';
-        Game.context.fillRect(this.position.x + 5, this.position.y + 4, (this.pv / this.maxPv) * 30, 2);
+        Game.context.fillRect(this.position.x + 5, this.position.y + 4, (this.pv / this.maxPv) * (Grid.size - (Grid.size / 5)), 2);
         Game.context.stroke();
     }
 
     takeDamage(damage: number, crit: boolean) {
-        Game.interface.createDamage(damage, crit, new Vector2(this.position.x + Game.grid.size / 2, this.position.y), true);
+        Game.interface.createDamage(damage, crit, new Vector2(this.position.x + Grid.size / 2, this.position.y), true);
         this.pv -= damage;
     }
 
@@ -122,7 +123,7 @@ class Tower {
     drawRange() {
         Game.context.beginPath();
         Game.context.strokeStyle = 'rgba(255,255,255,0.3)';
-        Game.context.arc(this.position.x + Game.grid.size / 2, this.position.y + Game.grid.size / 2, this.range, 0, 2 * Math.PI);
+        Game.context.arc(this.position.x + Grid.size / 2, this.position.y + Grid.size / 2, this.range, 0, 2 * Math.PI);
         Game.context.stroke();
     }
 
@@ -130,8 +131,8 @@ class Tower {
         if (this.target) {
             Game.context.beginPath();
             Game.context.strokeStyle = 'purple';
-            Game.context.moveTo(this.position.x + Game.grid.size / 2, this.position.y + Game.grid.size / 2);
-            Game.context.lineTo(this.target.position.x + Game.grid.size / 2, this.target.position.y + Game.grid.size / 2);
+            Game.context.moveTo(this.position.x + Grid.size / 2, this.position.y + Grid.size / 2);
+            Game.context.lineTo(this.target.position.x + Grid.size / 2, this.target.position.y + Grid.size / 2);
             Game.context.stroke();
         }
     }
@@ -152,8 +153,8 @@ class Ray {
     draw() {
         Game.context.beginPath();
         Game.context.strokeStyle = 'white';
-        Game.context.moveTo(this.start.x + Game.grid.size / 2, this.start.y);
-        Game.context.lineTo(this.end.x + Game.grid.size / 2, this.end.y + Game.grid.size / 2);
+        Game.context.moveTo(this.start.x + Grid.size / 2, this.start.y);
+        Game.context.lineTo(this.end.x + Grid.size / 2, this.end.y + Grid.size / 2);
         Game.context.stroke();
     }
 }

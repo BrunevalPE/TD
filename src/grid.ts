@@ -7,7 +7,7 @@ class Grid {
     readonly nbCol: number = 10;
     readonly enemySpawnRow: number = 3;
 
-    public readonly size: number = 40;
+    public static readonly size: number = 40;
 
     left: number;
     right: number;
@@ -18,21 +18,21 @@ class Grid {
     public caseSelected: Case;
 
     constructor() {
-        this.left = Game.w() / 2 - (this.nbCol / 2) * this.size;
-        this.top = Game.h() / 2 - (this.nbRow / 2) * this.size;
+        this.left = Game.w() / 2 - (this.nbCol / 2) * Grid.size;
+        this.top = Game.h() / 2 - (this.nbRow / 2) * Grid.size;
 
-        this.right = this.left + this.nbCol * this.size;
-        this.bottom = this.top + this.nbRow * this.size;
+        this.right = this.left + this.nbCol * Grid.size;
+        this.bottom = this.top + this.nbRow * Grid.size;
 
         for (var i = 0; i < this.nbCol; i++) {
             for (var j = 0; j < this.nbRow; j++) {
-                this.grid.push(new Case(new Vector2(this.left + i * this.size, this.top + j * this.size), this.size));
+                this.grid.push(new Case(new Vector2(this.left + i * Grid.size, this.top + j * Grid.size), Grid.size));
             }
         }
 
         for (var i = 0; i < this.nbCol; i++) {
             for (var j = 0; j < this.enemySpawnRow; j++) {
-                this.grid.push(new Case(new Vector2(this.left + i * this.size, this.top - this.size - j * this.size), this.size, true));
+                this.grid.push(new Case(new Vector2(this.left + i * Grid.size, this.top - Grid.size - j * Grid.size), Grid.size, true));
             }
         }
     }

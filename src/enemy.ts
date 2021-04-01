@@ -2,6 +2,7 @@ import { Vector2, Circle, Guid } from './utils.js';
 import { Game } from './game.js';
 import { MessageKind, Damage } from './interface.js';
 import { Tower } from './tower.js';
+import { Grid } from './grid.js';
 
 class Enemy {
     readonly aggroRange: number = 300;
@@ -36,7 +37,7 @@ class Enemy {
         this.name = obj.name;
         this.position = position;
 
-        this.hitbox = new Circle(this.position, Game.grid.size / 2);
+        this.hitbox = new Circle(this.position, Grid.size / 2);
         this.velocity = Vector2.zero();
         this.guid = Guid.NewGuid();
         this.gold = obj.gold;
@@ -50,7 +51,7 @@ class Enemy {
             Game.context.beginPath();
             Game.context.fillStyle = '#000';
             Game.context.strokeStyle = '#FF0000';
-            Game.context.arc(this.position.x + Game.grid.size / 2, this.position.y + Game.grid.size / 2, 10, 0, 2 * Math.PI);
+            Game.context.arc(this.position.x + Grid.size / 2, this.position.y + Grid.size / 2, 10, 0, 2 * Math.PI);
             Game.context.stroke();
 
             this.drawLife();
@@ -72,7 +73,7 @@ class Enemy {
 
         for (let i = 0; i < 15; i++) {
             Game.context.beginPath();
-            Game.context.arc(this.position.x + Game.grid.size / 2, this.position.y + Game.grid.size / 2, this.sizeSpread, totalAngle, totalAngle + angle);
+            Game.context.arc(this.position.x + Grid.size / 2, this.position.y + Grid.size / 2, this.sizeSpread, totalAngle, totalAngle + angle);
             Game.context.strokeStyle = '#FF0000';
             Game.context.stroke();
             totalAngle += angle * 2;
@@ -122,15 +123,15 @@ class Enemy {
                 this.position.add(this.velocity);
                 if (this.position.x < Game.grid.left) {
                     this.position.x = Game.grid.left;
-                } else if (this.position.x + Game.grid.size > Game.grid.right) {
-                    this.position.x = Game.grid.right - Game.grid.size;
+                } else if (this.position.x + Grid.size > Game.grid.right) {
+                    this.position.x = Game.grid.right - Grid.size;
                 }
             }
         }
     }
 
     takeDamage(damage: number, crit: boolean) {
-        Game.interface.createDamage(damage, crit, new Vector2(this.position.x + Game.grid.size / 2, this.position.y), false);
+        Game.interface.createDamage(damage, crit, new Vector2(this.position.x + Grid.size / 2, this.position.y), false);
         this.pv -= damage;
     }
 

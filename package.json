@@ -1,18 +1,16 @@
 {
     "scripts": {
-        "build": "tsc -w",
-        "start": "npm install ; npm run build -w & node index.js",
-        "debug": "docker build -t td-container ; docker run tf-container ; tsc -w"
+        "build": "tsc -w"
     },
-    "dependencies": {
-        "express": "^4.17.1",
-        "typescript": "^3.5.2"
-    },
+    "dependencies": {},
     "name": "td",
     "description": "Squadron like 2D",
     "version": "1.0.0",
     "main": "index.js",
-    "devDependencies": {},
+    "devDependencies": {
+        "tslint": "^5.20.0",
+        "typescript": "^3.6.4"
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/BrunevalPE/TD.git"

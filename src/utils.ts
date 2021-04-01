@@ -1,6 +1,7 @@
 class Vector2 {
     x: number;
     y: number;
+
     constructor(x: number, y: number) {
         this.x = x ? x : 0;
         this.y = y ? y : 0;
@@ -100,7 +101,7 @@ class Circle {
 
 class Guid {
     static NewGuid(): string {
-        return 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'.replace(/[x]/g, function(c) {
+        return 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'.replace(/[x]/g, function (c) {
             var r = (Math.random() * 16) | 0,
                 v = c == 'x' ? r : (r & 0x3) | 0x8;
             return v.toString(16);

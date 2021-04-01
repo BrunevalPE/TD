@@ -1,7 +1,16 @@
 {
     "compilerOptions": {
-        "target": "es6",
-        "module": "es6",
-        "sourceMap": true
-    }
+        "target": "esnext",
+        "module": "ES6",
+        "sourceMap": true,
+        "outDir": "bin/",
+        "allowJs": true,
+    },
+    "exclude": [
+        "**/*.spec.ts",
+        "./node_modules"
+    ],
+    "include": [
+        "src/*.ts"
+    ]
 }

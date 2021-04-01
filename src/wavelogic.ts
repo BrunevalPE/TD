@@ -1,8 +1,10 @@
-import { Game } from './game.js';
-import { Enemy } from './enemy.js';
-import { MessageKind } from './interface.js';
-import { Vector2 } from './utils.js';
-import { data } from './data.js';
+import { Game } from "./game.js";
+import { Enemy } from "./enemy.js";
+import { MessageKind } from "./interface.js";
+import { Vector2 } from "./utils.js";
+import { data } from "./data.js";
+import { Grid } from './grid.js';
+
 class WaveLogic {
     enemies: Array<any>;
     actualWave: number = 1;
@@ -28,11 +30,13 @@ class WaveLogic {
     }
 
     private spawnEnemies() {
-        data.enemies.forEach((enemy) => {
+        data.enemies.forEach(enemy => {
             if (enemy.wave == this.actualWave) {
                 for (var i = 0; i < Game.grid.nbCol; i++) {
                     for (var j = 0; j < Game.grid.enemySpawnRow; j++) {
-                        Game.enemies.push(new Enemy(enemy, new Vector2(Game.grid.left + i * Game.grid.size, Game.grid.top - Game.grid.size - j * Game.grid.size)));
+                        Game.enemies.push(
+                            new Enemy(enemy, new Vector2(Game.grid.left + i * Grid.size, Game.grid.top - Grid.size - j * Grid.size))
+                        );
                     }
                 }
             }
@@ -49,7 +53,7 @@ class WaveLogic {
         for (var i = 0; i < Game.enemies.length; i++) {
             var enemy = Game.enemies[i];
             if (enemy.isDeathState || enemy.position.y >= Game.h()) {
-                if (new Date().valueOf() - enemy.deathTime.valueOf() > 750) {
+                if (enemy.deathTime && new Date().valueOf() - enemy.deathTime.valueOf() > 750) {
                     Game.enemies.splice(i, 1);
                     Game.interface.enemyDied(enemy);
                 }
@@ -59,7 +63,7 @@ class WaveLogic {
 
     private waveDone() {
         if (this.actualWave >= data.enemies.length) {
-            Game.interface.createMessage('End.', 1000000, MessageKind.Big);
+            Game.interface.createMessage("End.", 1000000, MessageKind.Big);
         } else {
             this.disclaime();
         }

@@ -3,6 +3,7 @@ import { Game } from './game.js';
 import { Enemy } from './enemy.js';
 import { MenuItem } from './menuItem.js';
 import { data } from './data.js';
+
 class Interface {
     private gold: number = 200;
     private menuItems: Array<MenuItem> = [];
